@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(function(){
+		var songArea = $("#songArea");
+		var pattern = '<p>%s</p>';
+		$("[name='song']").on("change", function(){
+			var filename = $(this).val();
+			songArea.append(pattern.replace("%s", filename));
+		});
+	});
+</script> -->
+</head>
+<body>
+<form name="songForm" action="songs" method="post"> <!-- action은 web.xml의 url패턴과 같다 -->
+	<select name="song">
+		@option
+	</select>
+	<input type="submit" value="가사보기">
+</form>
+<!-- <div id="songArea"></div> -->
+</body>
+</html>
