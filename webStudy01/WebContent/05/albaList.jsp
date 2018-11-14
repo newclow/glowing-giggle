@@ -23,6 +23,8 @@
 	</thead>
 	<tbody>
 		<%
+		
+			//규연이가 넣은거
 			Map<String, AlbasengVO> alba = (Map<String, AlbasengVO>)getServletContext().getAttribute("albasengs");
 			for(Entry<String, AlbasengVO> entry : alba.entrySet()){
 				%>
