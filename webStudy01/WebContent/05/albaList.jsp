@@ -25,8 +25,8 @@
 		<%
 		
 			//규연이가 넣은거
-			Map<String, AlbasengVO> alba = (Map<String, AlbasengVO>)getServletContext().getAttribute("albasengs");
-			for(Entry<String, AlbasengVO> entry : alba.entrySet()){
+			Map<String, AlbasengVO> alba = (Map<String, AlbasengVO>)getServletContext().getAttribute("albasengs"); //속성에 있는것들중 albasengs에 해당하는 것을 가져와 alba에 Map형식으로 선언해준다
+			for(Entry<String, AlbasengVO> entry : alba.entrySet()){	//for문으로 작동하여 entry에서 해당 값의 코드에해당되는 이름 주소 연락처를 HTML형식으로 표시해준다.
 				%>
 					<tr>
 						<td><%=entry.getKey() %></td>

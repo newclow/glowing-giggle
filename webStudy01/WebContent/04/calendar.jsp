@@ -7,11 +7,6 @@
                                      메서드나 변수를 호출할수있다. -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>04/calendar.jsp</title>
 <style>
    .sunday{
       background-color: red;
@@ -30,7 +25,7 @@
 </style>
 <script>
    function eventHandler(year, month){
-      var form = document.forms[0] //이렇게하면 현재 문서에 들어있는 form태그의 모든 레퍼런스를 들고온다.
+      var form = document.calForm //이렇게하면 현재 문서에 들어있는 form태그의 모든 레퍼런스를 들고온다.
       if((year && month) || month==0){ //년이거나 월 이어야하고 또 월이 0이면
          form.year.value = year;	//form의 year값에 년도값을 준다
          form.month.value = month;	//form의 month값에 월값을 준다.
@@ -39,8 +34,7 @@
       return false;
    }
 </script>
-</head>
-<body>
+
    <%
       request.setCharacterEncoding("UTF-8");	//요청하는 char를 UTF-8로 인코딩
       String yearStr = request.getParameter("year"); //요청하는 year파라미터를 담아준다
@@ -77,7 +71,8 @@
       
       Locale[] locales = Locale.getAvailableLocales(); //자바자체에서 사용가능 지역/국가 정보를 가져온다.
    %>
-   <form>
+   <form name="calForm" method="post">
+   <input type="hidden" name="command" value="calendar" /> 
    <h4><%--달력에 전달 후달을 주기위한것 버튼액션 --%>
    <a href="javascript:eventHandler(<%=beforeYear%>,<%=beforeMonth%>);">이전달</a> <!-- calendar.jsp는 상대경로이기 때문에 
                         클라이언트 사이드 방식으로 작성해줘야 한다.  -->
@@ -154,5 +149,3 @@
             %>
    </tbody>
    </table>
-</body>
-</html>

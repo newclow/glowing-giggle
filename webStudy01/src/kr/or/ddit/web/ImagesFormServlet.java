@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class ImagesFormServlet extends HttpServlet {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setContentType("text/html;charset=UTF-8"); //인코딩은 출력스트림개방전에 셋팅
 		ServletContext context = req.getServletContext();
 		
@@ -60,7 +60,7 @@ public class ImagesFormServlet extends HttpServlet {
 		html.replace(start, end, replacetext);
 		PrintWriter out = resp.getWriter();
 		out.println(html.toString());
-		out.close();
+//		out.close();
 		
 	}
 }
