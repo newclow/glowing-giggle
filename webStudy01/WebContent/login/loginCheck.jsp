@@ -1,3 +1,6 @@
+<%@page import="kr.or.ddit.utils.CookieUtil.TextType"%>
+<%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
+<%@page import="kr.or.ddit.utils.CookieUtil"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!-- 1. 파라미터 확보 -->
@@ -12,6 +15,7 @@
 	request.setCharacterEncoding("UTF-8"); //처음에 특수문자를 생각해 인코딩해야됨
 	String id = request.getParameter("mem_id");
 	String pass = request.getParameter("mem_pass");
+	String idSaved = request.getParameter("idChecked");
 	String goPage = null;
 	boolean redirect = false;
 	if(id == null || id.trim().length() == 0 || id.matches("^[A-Za-z0-9]$") || pass == null || pass.trim().length()==0){
@@ -28,6 +32,12 @@
 			redirect = true;
 			session.setAttribute("message", "비번 오류로 인증 실패");
 		}
+	}
+	if(idSaved != null){ //idsaved 체크시 null이 아닐때 쿠키값을 만들어서 추가해줌
+		String idCookieValue = new CookieUtil(request).getCookieValue("id"); //이거모름 노이해
+		Cookie cookie = CookieUtil.createCookie("idSave", idCookieValue , 
+				request.getContextPath(), TextType.PATH, 60*60*24*7);
+		response.addCookie(cookie);
 	}
 	if(redirect){
 		response.sendRedirect(request.getContextPath()+ goPage); //원본 요청을 제거 하므로 redirect를 이용

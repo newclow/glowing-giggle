@@ -51,7 +51,7 @@ public class ImageServiceServlet extends HttpServlet {
 		if (StringUtils.isBlank(imageCookieValue)) {
 			CookieValues = new String[] {imgFile.getName()};
 		}else {
-			//unmar
+			//unmarcha
 			String[] cValues = mapper.readValue(imageCookieValue, String[].class);
 			CookieValues = new String[cValues.length +1 ]; //사진이 있어서 추가될때 cValues의길이에서 +1만큼의 새로운 배열을만들어서 넣어줌
 			System.arraycopy(cValues, 0, CookieValues, 0, cValues.length);
