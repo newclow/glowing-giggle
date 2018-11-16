@@ -23,7 +23,7 @@
       border: 1px solid black;
    }
 </style>
-<script>
+<script type="text/javascript">
    function eventHandler(year, month){
       var form = document.calForm //이렇게하면 현재 문서에 들어있는 form태그의 모든 레퍼런스를 들고온다.
       if((year && month) || month==0){ //년이거나 월 이어야하고 또 월이 0이면
