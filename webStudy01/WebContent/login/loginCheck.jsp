@@ -1,3 +1,4 @@
+<%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@page import="kr.or.ddit.utils.CookieUtil.TextType"%>
 <%@page import="com.fasterxml.jackson.databind.ObjectMapper"%>
 <%@page import="kr.or.ddit.utils.CookieUtil"%>
@@ -16,34 +17,36 @@
 	String id = request.getParameter("mem_id");
 	String pass = request.getParameter("mem_pass");
 	String idSaved = request.getParameter("idChecked");
-	String goPage = null;
-	boolean redirect = false;
+	int maxAge = 0;	//만료시간 선언
+	if(StringUtils.isNotBlank(idSaved)){ //null이 아니거나 whitespaces가 없으면
+		maxAge = 60*60*24*7; //만료시간을 7일설정
+	}
+	String goPage = null;	//가야될페이지
+	boolean redirect = false; //true시 redirect진행
 	if(id == null || id.trim().length() == 0 || id.matches("^[A-Za-z0-9]$") || pass == null || pass.trim().length()==0){
-		goPage = "/login/loginForm.jsp";
-		redirect = true;
-		session.setAttribute("message", "아이디나 비번 누락");
+		goPage = "/login/loginForm.jsp"; //if문에 해당 될시 로그인폼으로 돌아간다
+		redirect = true; //돌아갈시 입력된 아이디를 redirect형식으로 응답해준다.
+		session.setAttribute("message", "아이디나 비번 누락"); //속성으로 넣어주며 메시지에 들어갈 value를 입력한다.
 	} else{
-		if(id.equals(pass)){
-			goPage = "/";
-			redirect = true;
-			session.setAttribute("authMember", id);
+		if(id.equals(pass)){ //위의 if문에 해당안될시 진행되며 id와 pass가 같으면 진행
+			goPage = "/"; //contentpath에서 진행되며(지정한 시작점)
+			redirect = true; //redirect형식으로 진행
+			session.setAttribute("authMember", id); //속성 authMember를 value값으로 id를주고
+			Cookie cookie = CookieUtil.createCookie("idSave", id , request.getContextPath(), TextType.PATH, maxAge); //쿠키를 만들어준다 (이름 지정,value값으로 id,contextpath를 지정, path(/)를지정, 만료기간지정)
+			response.addCookie(cookie); //쿠키를 추가한다
 		}else{//인증실패
-			goPage = "/login/loginForm.jsp?error=1";
-			redirect = true;
-			session.setAttribute("message", "비번 오류로 인증 실패");
+			goPage = "/login/loginForm.jsp?error=1"; //?쿼리문자열로 error에 1을주고 페이지를가고
+			redirect = true; //redirect형식으로 진행
+			session.setAttribute("message", "비번 오류로 인증 실패"); //속성으로 메시지를 비번오류로 인증 실패를 준다.
 		}
 	}
-	if(idSaved != null){ //idsaved 체크시 null이 아닐때 쿠키값을 만들어서 추가해줌
-		String idCookieValue = new CookieUtil(request).getCookieValue("id"); //이거모름 노이해
-		Cookie cookie = CookieUtil.createCookie("idSave", idCookieValue , 
-				request.getContextPath(), TextType.PATH, 60*60*24*7);
-		response.addCookie(cookie);
-	}
+		
+		
 	if(redirect){
 		response.sendRedirect(request.getContextPath()+ goPage); //원본 요청을 제거 하므로 redirect를 이용
 	}else{
-		RequestDispatcher rd = request.getRequestDispatcher(goPage);
-		rd.forward(request, response);
+		RequestDispatcher rd = request.getRequestDispatcher(goPage); //디스패쳐로 진행되며
+		rd.forward(request, response); //포워드형식으로 진행
 	}
 	
 // 	if(id == null || id.trim().length() == 0 || id.matches("^[A-Za-z0-9]$") || pass == null || pass.trim().length()==0){

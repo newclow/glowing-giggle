@@ -56,7 +56,7 @@ public class CookieUtil {
 	
 	/**
 	 * 이름으로 쿠키검색
-	 * @param name
+	 * @param name 쿠키명
 	 * @return 존재하지 않는 경우 null반환
 	 */
 	public Cookie getCookie(String name){
@@ -65,7 +65,7 @@ public class CookieUtil {
 	
 	/**
 	 * 이름으로 검색 후 value 획득(UTF-8 방식의 디코딩)
-	 * @param name
+	 * @param name 쿠키명
 	 * @return
 	 */
 	public String getCookieValue(String name){
@@ -114,8 +114,8 @@ public class CookieUtil {
 	
 	/**
 	 * 쿠키 생성
-	 * @param name 이름
-	 * @param value 값
+	 * @param name 쿠키명
+	 * @param value 쿠키값
 	 * @param text 도메인이나 경로로 사용할 문자열
 	 * @param type text파라미터를 도메인으로 사용할지 경로로 사용할지를 결정하는 상수
 	 * @return
@@ -129,11 +129,11 @@ public class CookieUtil {
 	
 	/**
 	 * 이름 값 경로/도메인과 만료시간 설정
-	 * @param name 
-	 * @param value 
-	 * @param text 
-	 * @param type 
-	 * @param maxAge 
+	 * @param name 쿠키명
+	 * @param value 쿠키값
+	 * @param text 도메인이나 경로로 사용할 문자열
+	 * @param type 파라미터를 도메인으로 사용할지 경로로 사용할지를 결정하는 상수
+	 * @param maxAge 초단위 만료 시간
 	 * @return
 	 */
 	public static Cookie createCookie(String name, String value, String text, TextType type, int maxAge){
@@ -143,8 +143,8 @@ public class CookieUtil {
 	}
 	/**
 	 * 이름, 값, 도메인 경로설정
-	 * @param name
-	 * @param value
+	 * @param name 쿠키명
+	 * @param value 쿠키값
 	 * @param domain
 	 * @param path
 	 * @return
@@ -159,11 +159,11 @@ public class CookieUtil {
 	
 	/**
 	 * 이름 값 도메인 경로 만료시간 설정
-	 * @param name
-	 * @param value
+	 * @param name 쿠키명
+	 * @param value 쿠키값
 	 * @param domain
 	 * @param path
-	 * @param maxAge
+	 * @param maxAge 초단위 만료 시간
 	 * @return
 	 */
 	public static Cookie createCookie(String name, String value, String domain, String path, int maxAge){
