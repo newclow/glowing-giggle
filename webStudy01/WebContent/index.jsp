@@ -1,18 +1,19 @@
+<%@page import="kr.or.ddit.vo.MemberVO"%>
 <%@page import="java.util.Objects"%>
 <%@page import="kr.or.ddit.web.modulize.ServiceType"%>
 <%@page import="org.apache.commons.lang3.StringUtils"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%
-   String mem_id = (String) session.getAttribute("authMember");
+   MemberVO authMember = (MemberVO) session.getAttribute("authMember");
 
    String cmdParam = request.getParameter("command");
    int statusCode = 0;
    String includePage = null;
    if(StringUtils.isNotBlank(cmdParam)){
       try{
-         ServiceType sType = ServiceType.valueOf(cmdParam.toUpperCase());
-         includePage = sType.getServicePage();
+         ServiceType sType = ServiceType.valueOf(cmdParam.toUpperCase()); //cmdparam를 대문자로 지정하고  ServiceType에 있는 상수에 그 값이 있으면 주고 없으면 null이된다. 
+         includePage = sType.getServicePage(); //위에서 값을 주었을때 get으로 가져와 string변수에 값을 넣어준다.
       }catch(IllegalArgumentException e){
          statusCode = HttpServletResponse.SC_NOT_FOUND;
       }
@@ -52,9 +53,9 @@
                로그인에 성공해서 웰컴 페이지로 접속하는 경우의 수가 있음.
                
                   	 <%
-			            if (StringUtils.isNotBlank(mem_id)) {
+			            if (authMember != null) {
 			         %>
-			         		<%=mem_id%>님 로그인 상태, <a href="<%=request.getContextPath()%>/login/logout.jsp">로그아웃</a>
+			         		<%=authMember.getMem_name()%>님 로그인 상태, <a href="<%=request.getContextPath()%>/login/logout.jsp">로그아웃</a>
 			         <%
 			            } else {
 			         %>
