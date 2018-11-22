@@ -1,0 +1,13 @@
+		<style type="text/css">
+			table{
+				border-collaps: collaps;
+				background-color : blue;
+				
+			}
+			td{
+				border : 1px solid black;
+			}
+		</style>
+		<table>
+			@gugudan
+		</table>
