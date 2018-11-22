@@ -1,0 +1,58 @@
+<%@page import="kr.or.ddit.member.service.MemberServiceImpl"%>
+<%@page import="kr.or.ddit.member.dao.MemberDAOImpl"%>
+<%@page import="kr.or.ddit.member.service.IMemberService"%>
+<%@page import="kr.or.ddit.vo.MemberVO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!-- 1. 파라미터확보(특수문자 고려) -->
+<!-- 2. 검증(검증룰 : member테이블의 스키마를 확인, 필수데이터 검증 반드시!) -->
+<!-- 3. 통과 -->
+<!-- 	1) 로직객체와 의존관계형성 -->
+<!-- 	2) 로직선택(registMember) -->
+<!-- 		PKDUPLICATED : memberForm.jsp로 이동,forward(메세지, 기존 입력데이터 공유) -->
+<!-- 		OK : memberList.jsp로 이동 redirect -->
+<!-- 		FAILED : memberForm.jsp로 이동,forward(메세지, 기존 입력데이터 공유) -->
+<!-- 4. 불통 -->
+<!-- 	memberForm.jsp로 이동,forward(검증결과 메세지, 기존 입력데이터 공유) -->
+<%
+	request.setCharacterEncoding("UTF-8");
+	
+	IMemberService service = new MemberServiceImpl();
+
+	MemberVO vo = new MemberVO();
+	vo.setMem_id(request.getParameter("mem_id"));
+	vo.setMem_name(request.getParameter("mem_name"));
+	vo.setMem_pass(request.getParameter("mem_pass"));
+	vo.setMem_regno1(request.getParameter("mem_regno1"));	
+	vo.setMem_regno2(request.getParameter("mem_regno2"));	
+	vo.setMem_bir(request.getParameter("mem_bir"));
+	vo.setMem_zip(request.getParameter("mem_zip"));
+	vo.setMem_add1(request.getParameter("mem_add1"));
+	vo.setMem_add1(request.getParameter("mem_add2"));
+	vo.setMem_hometel(request.getParameter("mem_hometel"));
+	vo.setMem_comtel(request.getParameter("mem_comtel"));
+	vo.setMem_hp(request.getParameter("mem_hp"));
+	vo.setMem_mail(request.getParameter("mem_mail"));
+	vo.setMem_job(request.getParameter("mem_job"));
+	vo.setMem_like(request.getParameter("mem_like"));
+	vo.setMem_memorial(request.getParameter("mem_memorial"));
+	vo.setMem_memorialday(request.getParameter("mem_memorialday"));
+
+	request.setAttribute("memVO", vo);
+	
+	response.sendRedirect(request.getContextPath()+"/member/memberList.jsp");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%>

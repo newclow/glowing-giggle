@@ -1,5 +1,6 @@
 package kr.or.ddit.member.service;
 
+import kr.or.ddit.ServiceResult;
 import kr.or.ddit.member.dao.IMemberDAO;
 import kr.or.ddit.member.dao.MemberDAOImpl;
 import kr.or.ddit.vo.MemberVO;
@@ -7,7 +8,6 @@ import kr.or.ddit.vo.MemberVO;
 public class AuthenticateServiceImpl implements IAuthenticateService {
 	IMemberDAO memberDAO = new MemberDAOImpl(); // 의존객체를 생성
 	
-	public static enum ServiceResult{PKNOTFOUND, INVALIDPASSWORD} //enum으로 상수로 의미를 만들어 틀리면 왜틀렸는지 알게한다.즉 표시
 	
 	@Override//아이디가 있는경우, 아이디는 맞는데 비번이 틀린경우, 성공한경우
 	public Object authenticate(MemberVO member) { //인증여부를 판단하는 로직개체

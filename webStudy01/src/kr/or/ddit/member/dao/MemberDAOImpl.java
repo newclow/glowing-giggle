@@ -1,6 +1,7 @@
 package kr.or.ddit.member.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.ibatis.sqlmap.client.SqlMapClient;
 
@@ -19,5 +20,36 @@ public class MemberDAOImpl implements IMemberDAO {
 		}catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public int insertMember(MemberVO member) {
+		try {
+				return sqlMapClient.update("Member.insertMember", member);
+			}catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+	}
+
+	@Override
+	public List<MemberVO> selectMemberList() {
+		try {
+			List<MemberVO> list = sqlMapClient.queryForList("Member.selectMemberList");
+			return list;
+		} catch (SQLException e) {
+			throw new RuntimeException(e); 
+		}
+	}
+
+	@Override
+	public int updateMember(MemberVO member) {
+		
+		return 0;
+	}
+
+	@Override
+	public int deleteMember(String mem_id) {
+		
+		return 0;
 	}
 }

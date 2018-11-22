@@ -1,0 +1,124 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>member/memberForm.jsp</title>
+</head>
+<body>
+<h4></h4>
+<form action="<%=request.getContextPath() %>/member/memberInsert.jsp" method="post">
+<table>
+	<tr>
+		<th>회원아이디</th>
+		<td>
+			<input type="text" name="mem_id" />
+		</td>
+	</tr>
+	<tr>
+		<th>비밀번호</th>
+		<td>
+			<input type="password" name="mem_pass" />
+		</td>
+	</tr>
+	<tr>
+		<th>회원이름</th>
+		<td>
+			<input type="text" name="mem_name" />
+		</td>
+	</tr>
+	<tr>
+		<th>주민번호앞자리</th>
+		<td>
+			<input type="text" name="mem_regno1" />
+		</td>
+	</tr>
+	<tr>
+		<th>주민번호뒷자리</th>
+		<td>
+			<input type="text" name="mem_regno2" />
+		</td>
+	</tr>
+	<tr>
+		<th>회원생일</th>
+		<td>
+			<input type="text" name="mem_bir" />
+		</td>
+	</tr>
+	<tr>
+		<th>우편번호</th>
+		<td>
+			<input type="text" name="mem_zip" />
+		</td>
+	</tr>
+	<tr>
+		<th>주소</th>
+		<td>
+			<input type="text" name="mem_add1" />
+		</td>
+	</tr>
+	<tr>
+		<th>상세주소</th>
+		<td>
+			<input type="text" name="mem_add2" />
+		</td>
+	</tr>
+	<tr>
+		<th>집전화</th>
+		<td>
+			<input type="text" name="mem_hometel" />
+		</td>
+	</tr>
+	<tr>
+		<th>직장전화</th>
+		<td>
+			<input type="text" name="mem_comtel" />
+		</td>
+	</tr>
+	<tr>
+		<th>핸드폰전화</th>
+		<td>
+			<input type="text" name="mem_hp" />
+		</td>
+	</tr>
+	<tr>
+		<th>메일</th>
+		<td>
+			<input type="text" name="mem_mail" />
+		</td>
+	</tr>
+	<tr>
+		<th>직업</th>
+		<td>
+			<input type="text" name="mem_job" />
+		</td>
+	</tr>
+	<tr>
+		<th>취미</th>
+		<td>
+			<input type="text" name="mem_like" />
+		</td>
+	</tr>
+	<tr>
+		<th>기념</th>
+		<td>
+			<input type="text" name="mem_memorial" />
+		</td>
+	</tr>
+	<tr>
+		<th>기념일</th>
+		<td>
+			<input type="text" name="mem_memorialday" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<input type="submit" value="등록">
+			<input type="reset" value="취소">
+		</td>
+	</tr>
+</table>
+</form>
+</body>
+</html>
