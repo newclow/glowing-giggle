@@ -13,23 +13,22 @@ import org.apache.commons.lang3.StringUtils;
 
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
+import kr.or.ddit.mvc.ICommandHandler;
 import kr.or.ddit.vo.MemberVO;
 
-@WebServlet("/member/memberView.do")
-public class MemberViewServlet extends HttpServlet {
+public class MemberViewController implements ICommandHandler  {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public String process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String mem_id = req.getParameter("who");
 		if (StringUtils.isBlank(mem_id)) {
 			resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
-			return;
+			return null;
 		}
 		IMemberService service = new MemberServiceImpl();
 		MemberVO member = service.retrieveMember(mem_id);
 		
 		req.setAttribute("member", member);
-		String view = "/WEB-INF/views/member/memberView.jsp";
-		RequestDispatcher rd = req.getRequestDispatcher(view);
-		rd.forward(req, resp);
+		String view = "member/memberView";
+		return view;
 	}
 }

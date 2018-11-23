@@ -1,3 +1,4 @@
+<%@page import="kr.or.ddit.vo.PagingInfoVO"%>
 <%@page import="kr.or.ddit.vo.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@page import="kr.or.ddit.member.service.MemberServiceImpl"%>
@@ -5,11 +6,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-	List<MemberVO> memberList = (List<MemberVO>)request.getAttribute("memberList");
-	boolean check = false;
-	if(memberList.size()!=0){
-	   check = true;
-	}
+	PagingInfoVO pagingVO = (PagingInfoVO)request.getAttribute("pagingVO");
+	List<MemberVO> memberList = pagingVO.getDataList();
 %>
 <!DOCTYPE html>
 <html>
@@ -60,6 +58,15 @@
 		}
 	%>
 	</tbody>
+	<tfoot>
+		<tr>
+				<td colspan="6">
+					<nav aria-label="Page navigation example">
+						<%=pagingVO.getPagingHTML() %>
+					</nav>
+				</td>
+			</tr>
+	</tfoot>
 </table>
 </body>
 </html>

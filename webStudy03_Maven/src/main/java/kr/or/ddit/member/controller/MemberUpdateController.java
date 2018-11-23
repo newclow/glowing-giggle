@@ -22,17 +22,16 @@ import kr.or.ddit.CommonException;
 import kr.or.ddit.ServiceResult;
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
+import kr.or.ddit.mvc.ICommandHandler;
 import kr.or.ddit.vo.MemberVO;
 
-@WebServlet("/member/memberUpdate.do")
-public class MemberUpdateServlet extends HttpServlet {
+public class MemberUpdateController implements ICommandHandler {
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public String process (HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 //		요청 검증
 //		통과
 //		불통시 memberview.jsp로돌아감 각상황마다 에러메시지와 입력했던 기존데이터
 //		수정성공(redirect) 사항과 수성실패(dispetcher)시 memberview가는 방식이 다르다  
-		req.setCharacterEncoding("UTF-8");
 		MemberVO member = new MemberVO();
 		req.setAttribute("member", member);
 		try {
@@ -42,7 +41,6 @@ public class MemberUpdateServlet extends HttpServlet {
 		}
 		String goPage = null;
 		String message = null;
-		boolean redirect = false;
 		Map<String, String> errors = new LinkedHashMap<>();
 		req.setAttribute("errors", errors);
 		boolean valid = validate(member, errors);
@@ -52,15 +50,14 @@ public class MemberUpdateServlet extends HttpServlet {
 			switch (result) {
 			case OK:
 //				goPage = "/member/memberView.do?who="+member.getMem_id();    //redirect형식으로 server에서 server로 갈수 없어 (/WEB-INF/는 serverSide) webservlet으로 형식을 지정해주고 그 형식을 불러서 이동한다
-				goPage = "/member/mypage.do";
-				redirect = true;					
+				goPage = "redirect:/member/mypage.do";
 				break;
 			case FAILED:
-				goPage = "/WebContent/WEB-INF/views/member/memberView.jsp"; //디스패치형식이므로 server에서 server로 갈수있어서 이런형식임
+				goPage = "member/memberView"; //디스패치형식이므로 server에서 server로 갈수있어서 이런형식임
 				message = "수정에 실패했습니다.";
 				break;
 			case INVALIDPASSWORD:
-				goPage = "/WebContent/WEB-INF/views/member/memberView.jsp";
+				goPage = "member/memberView";
 				message = "비밀번호가 같지 않습니다.";
 				break;
 			}
@@ -68,12 +65,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		}else {
 			goPage = "/WebContent/WEB-INF/views/member/memberView.jsp";
 		}
-		if (redirect) {
-			resp.sendRedirect(req.getContextPath()+goPage);
-		} else {
-			RequestDispatcher rd = req.getRequestDispatcher(goPage);
-			rd.forward(req, resp);
-		}
+		return goPage;
 	}
 	
 	private boolean validate(MemberVO member, Map<String, String> errors){

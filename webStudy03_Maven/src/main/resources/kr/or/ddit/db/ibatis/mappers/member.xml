@@ -15,9 +15,21 @@
 		<include refid="Member.selectMemberFrag"/>   
 	    WHERE MEM_ID= #data#
 	</select>
-	<select id="selectMemberList" resultClass="memberVO">
-		<include refid="Member.selectMemberFrag"/>
-		ORDER BY ROWID DESC
+	<select id="selectTotalRecord" resultClass="long">
+		SELECT COUNT(*)
+		FROM MEMBER
+	</select>
+	
+	<select id="selectMemberList" resultClass="memberVO" parameterClass="pagingVO">
+		SELECT B.*
+		FROM (
+				SELECT ROWNUM RNUM, A.*
+				FROM (
+						<include refid="Member.selectMemberFrag"/> 
+						ORDER BY ROWID DESC 	) A   ) B
+		<![CDATA[			
+		WHERE RNUM >= #startRow# AND RNUM <= #endRow#		
+		]]>			
 	</select>
 	<insert id="insertMember" parameterClass="memberVO">
 		INSERT INTO member (
